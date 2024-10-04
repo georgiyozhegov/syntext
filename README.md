@@ -70,3 +70,9 @@ Prompt used to instruct ChatGPT:
 - Пиши вдумчиво, кратка и понятно.
 - Не дели статью на части по вопросам.
 ````
+
+If you want to change topics used to generate questions, you can edit the `knowledge.py` file.
+
+# References
+
+- [g4f](https://github.com/xtekky/gpt4free)
