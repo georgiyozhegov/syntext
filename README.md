@@ -1,6 +1,6 @@
 # SynText
 
-Set of scripts that uses g4f to generate synthetic texts.
+Set of scripts that uses g4f to generate synthetic texts. You can find dataset generated using this tool [here](https://huggingface.co/datasets/georgiyozhegov/syntext).
 
 # Usage
 
