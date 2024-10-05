@@ -13,9 +13,12 @@ def main():
                 questions, text = text.split("# Текст")
                 
                 topic = topic.strip()
+
                 questions = questions.strip().split("\n")
                 questions = list(map(lambda q: q.split(" ", 1)[1], questions))
+
                 text = mdtex2html.convert(text.strip())
+                text = text.replace("xmlns=\"http://www.w3.org/1998/Math/MathML\" ", "")
 
                 data = {
                         "topic": topic,
