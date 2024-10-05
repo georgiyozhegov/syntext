@@ -1,4 +1,5 @@
 import json
+import mdtex2html
 
 def main():
     with open("dataset.jsonl") as file:
@@ -13,14 +14,15 @@ def main():
                 
                 topic = topic.strip()
                 questions = questions.strip().split("\n")
-                text = text.strip()
                 questions = list(map(lambda q: q.split(" ", 1)[1], questions))
+                text = mdtex2html.convert(text.strip())
 
                 data = {
                         "topic": topic,
                         "questions": questions,
                         "article": text,
                 }
+
                 data = json.dumps(data, ensure_ascii=False) + "\n"
                 print(data, end="")
             except:
