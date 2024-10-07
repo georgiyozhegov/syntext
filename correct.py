@@ -1,9 +1,8 @@
 from g4f.client import Client
 import json
-from knowledge import Topics, PROMPT
+from knowledge import CORRECTION_PROMPT
 
 client = Client()
-
 
 def generate(prompt):
     response = client.chat.completions.create(
@@ -13,24 +12,27 @@ def generate(prompt):
     )
     return response.choices[0].message.content
 
-topics = Topics()
-
-with open("dataset.jsonl", "a") as output:
-    while True:
+with open("dataset-corrected.jsonl", "a") as output:
+    for line in open("dataset.jsonl"):
+        data = json.loads(line)
+        text = data["article"]
+        
+        prompt = CORRECTION_PROMPT % text
         text = "Rate limit"
         while True:
-            topic = topics.choose()
-            prompt = PROMPT % topic
             try:
                 text = generate(prompt)
                 if not (text.startswith("Rate limit") or text.startswith("One message")):
                     break
             except Exception as exception:
                 print("Error:", exception)
+
         data = {
-            "topic": topic,
-            "text": text,
+            "topic": data["topic"],
+            "questions": data["questions"],
+            "article": text,
         }
+
         data = json.dumps(data, ensure_ascii=False) + "\n"
         print(data)
         output.write(data)
